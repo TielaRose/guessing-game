@@ -17,13 +17,21 @@ def ask_for_guesses(name):
     random_number = random.choice(range(1, 101))
     current_guess = 0
     num_tries = 0
+    guesses = []
 
     while random_number != current_guess:
+        print()
+        if len(guesses) > 0:
+            print("So far you have guessed: ", guesses)
+            print()
         current_guess = int(input("Your guess? "))
+        guesses.append(current_guess)
         num_tries += 1
         if current_guess < random_number:
+            print()
             print("Your guess is too low, try again!")
         elif current_guess > random_number:
+            print()
             print("Your guess is too high, try again!")
         else:
             break
