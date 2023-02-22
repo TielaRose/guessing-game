@@ -24,7 +24,14 @@ def ask_for_guesses(name):
         if len(guesses) > 0:
             print("So far you have guessed: ", guesses)
             print()
-        current_guess = int(input("Your guess? "))
+        raw_guess = input("Your guess? ")
+
+        try:
+            current_guess = int(raw_guess)
+        except:
+            print("Guesses must be an integer")
+            continue
+
         guesses.append(current_guess)
         num_tries += 1
         if current_guess < random_number:
