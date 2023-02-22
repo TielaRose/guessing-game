@@ -32,6 +32,10 @@ def ask_for_guesses(name):
             print("Guesses must be an integer")
             continue
 
+        if current_guess < 1 or current_guess > 100:
+            print("Guesses must be between 1 and 100, inclusive")
+            continue
+
         guesses.append(current_guess)
         num_tries += 1
         if current_guess < random_number:
