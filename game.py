@@ -1,16 +1,29 @@
 """A number-guessing game."""
 import random
-
-# ask user for their name
-# computer will pick a random number between 1 and 100
-# user will guess a number; computer will say, "too low" or "too high"
-# when user guesses correctly, display number of guesses
+from termcolor import cprint
 
 
 def get_name():
+    """Ask for and return user's name"""
     print("Howdy, what's your name?")
     name = input("(type in your name) ").title().rstrip()
     return name
+
+
+def print_guesses(lst, answer):
+    """Prints user's guesses in color"""
+    lst.sort()
+
+    print("Your guesses:")
+
+    for num in lst:
+        if num < answer:
+            cprint(num, "green", end="")
+            print(" ", end="")
+        elif num > answer:
+            cprint(num, "red", end="")
+            print(" ", end="")
+    print("")
 
 
 def ask_for_guesses(name):
@@ -22,7 +35,7 @@ def ask_for_guesses(name):
     while random_number != current_guess:
         print()
         if len(guesses) > 0:
-            print("So far you have guessed: ", guesses)
+            print_guesses(guesses, random_number)
             print()
         raw_guess = input("Your guess? ")
 
@@ -37,16 +50,19 @@ def ask_for_guesses(name):
             continue
 
         guesses.append(current_guess)
+        guesses.sort()
         num_tries += 1
         if current_guess < random_number:
             print()
-            print("Your guess is too low, try again!")
+            cprint("Your guess is too low, try again!", "green")
         elif current_guess > random_number:
             print()
-            print("Your guess is too high, try again!")
+            cprint("Your guess is too high, try again!", "red")
         else:
             break
-    print(f"Well done, {name}! You found my number in {num_tries} tries!")
+    print()
+    cprint(
+        f"Well done, {name}! You found my number in {num_tries} tries!", "blue")
 
 
 def play_game():
